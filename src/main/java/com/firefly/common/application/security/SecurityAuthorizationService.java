@@ -20,6 +20,8 @@ import com.firefly.common.application.context.AppContext;
 import com.firefly.common.application.context.AppSecurityContext;
 import reactor.core.publisher.Mono;
 
+import java.util.Set;
+
 /**
  * Service for authorization decisions.
  * Integrates with Firefly SecurityCenter to determine access rights.
@@ -64,4 +66,34 @@ public interface SecurityAuthorizationService {
      * @return Mono of boolean result
      */
     Mono<Boolean> evaluateExpression(AppContext context, String expression);
+    
+    /**
+     * Checks if a party has all specified permissions.
+     * 
+     * @param context the application context
+     * @param permissions the permissions to check
+     * @return Mono of boolean indicating if all permissions are granted
+     */
+    default Mono<Boolean> hasAllPermissions(AppContext context, Set<String> permissions) {
+        if (permissions == null || permissions.isEmpty()) {
+            return Mono.just(true);
+        }
+        return Mono.fromSupplier(() -> permissions.stream()
+                .allMatch(p -> hasPermission(context, p).block()));
+    }
+    
+    /**
+     * Checks if a party has any of the specified roles.
+     * 
+     * @param context the application context
+     * @param roles the roles to check
+     * @return Mono of boolean indicating if any role is present
+     */
+    default Mono<Boolean> hasAnyRole(AppContext context, Set<String> roles) {
+        if (roles == null || roles.isEmpty()) {
+            return Mono.just(true);
+        }
+        return Mono.fromSupplier(() -> roles.stream()
+                .anyMatch(r -> hasRole(context, r).block()));
+    }
 }
