@@ -733,28 +733,28 @@ protected Mono<MyResponse> doExecute(
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Banking as a Service APIs                     │
+│                    Banking as a Service APIs                    │
 │     (Standard REST Endpoints - /api/v1/accounts, etc.)          │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
 ┌───────────────────────────────▼─────────────────────────────────┐
-│              EXISTING Controller Layer (UNCHANGED)               │
-│   AbstractApplicationController / AbstractResourceController     │
+│              EXISTING Controller Layer (UNCHANGED)              │
+│   AbstractApplicationController / AbstractResourceController    │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
 ┌───────────────────────────────▼─────────────────────────────────┐
-│              ProcessPluginExecutor (Service Layer)               │
+│              ProcessPluginExecutor (Service Layer)              │
 │    • Resolves process from config-mgmt                          │
-│    • Validates permissions                                       │
+│    • Validates permissions                                      │
 │    • Executes plugin                                            │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
 ┌───────────────────────────────▼─────────────────────────────────┐
-│                    Process Plugin Layer                          │
-│   ┌────────────────┐  ┌────────────────┐  ┌────────────────┐   │
-│   │ Vanilla Process│  │ Custom Process │  │Workflow-Based  │   │
-│   │ (Default impl) │  │(Tenant-specific)│  │   Process      │   │
-│   └────────────────┘  └────────────────┘  └────────────────┘   │
+│                    Process Plugin Layer                         │
+│   ┌────────────────┐  ┌────────────────┐  ┌────────────────┐    │
+│   │ Vanilla Process│  │ Custom Process │  │ Workflow-Based │    │
+│   │ (Default impl) │  │(Tenant-specif.)│  │     Process    │    │
+│   └────────────────┘  └────────────────┘  └────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
