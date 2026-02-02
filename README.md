@@ -4,7 +4,7 @@ Business process orchestration • Multi-domain coordination • Context managem
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Understanding the Three-Layer Architecture](#understanding-the-three-layer-architecture)
@@ -13,10 +13,11 @@ Business process orchestration • Multi-domain coordination • Context managem
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
 - [Architecture Patterns](#architecture-patterns)
-- [📚 Complete Documentation](#-complete-documentation)
+- [Complete Documentation](#-complete-documentation)
 - [Examples](#examples)
 - [Configuration](#configuration)
 - [Caching](#caching)
+- [Plugin Architecture](#plugin-architecture)
 - [Testing](#testing)
 - [Performance & Monitoring](#performance--monitoring)
 - [Contributing](#contributing)
@@ -84,40 +85,40 @@ Channels (Web/Mobile/Apps)
 
 This library provides a **fully integrated, controller-based** application layer with **complete Security Center integration**:
 
-#### 🔒 Security Center Integration - COMPLETE
-- ✅ **FireflySessionManager Integration** – Fully integrated for session management, roles, and permissions
-- ✅ **Automatic Role Resolution** – Roles extracted from party contracts via Security Center
-- ✅ **Automatic Permission Resolution** – Permissions derived from role scopes (action + resource)
-- ✅ **Product Access Validation** – Validates party has access to requested products/contracts
-- ✅ **SessionContextMapper Utility** – Maps session data to AppContext roles/permissions
-- ✅ **Graceful Degradation** – Works even if Security Center is temporarily unavailable
+#### Security Center Integration - COMPLETE
+-  **FireflySessionManager Integration** – Fully integrated for session management, roles, and permissions
+-  **Automatic Role Resolution** – Roles extracted from party contracts via Security Center
+-  **Automatic Permission Resolution** – Permissions derived from role scopes (action + resource)
+-  **Product Access Validation** – Validates party has access to requested products/contracts
+-  **SessionContextMapper Utility** – Maps session data to AppContext roles/permissions
+-  **Graceful Degradation** – Works even if Security Center is temporarily unavailable
 
-#### 🎯 Core Features
-- ✅ **@FireflyApplication** annotation for application metadata and service discovery
-- ✅ **Context Architecture** (AppContext, AppConfig, AppSecurityContext, ApplicationExecutionContext)
-- ✅ **@Secure Annotation** system for declarative security
-- ✅ **Two Base Controllers** – `AbstractApplicationController`, `AbstractResourceController`
-- ✅ **Automatic Context Resolution** – Party/Tenant from Istio headers + Contract/Product from path variables
-- ✅ **Default Config Resolver** – Fetches tenant configuration automatically
-- ✅ **Default Security Authorization** – Validates roles/permissions automatically
-- ✅ **Abstract Application Service** base class for business orchestration
-- ✅ **AOP Interceptors** for annotation processing
-- ✅ **Spring Boot Auto-configuration**
-- ✅ **Actuator Integration** with application metadata exposed in /actuator/info
+#### Core Features
+-  **@FireflyApplication** annotation for application metadata and service discovery
+-  **Context Architecture** (AppContext, AppConfig, AppSecurityContext, ApplicationExecutionContext)
+-  **@Secure Annotation** system for declarative security
+-  **Two Base Controllers** – `AbstractApplicationController`, `AbstractResourceController`
+-  **Automatic Context Resolution** – Party/Tenant from Istio headers + Contract/Product from path variables
+-  **Default Config Resolver** – Fetches tenant configuration automatically
+-  **Default Security Authorization** – Validates roles/permissions automatically
+-  **Abstract Application Service** base class for business orchestration
+-  **AOP Interceptors** for annotation processing
+-  **Spring Boot Auto-configuration**
+-  **Actuator Integration** with application metadata exposed in /actuator/info
 
-**✨ Extend the appropriate controller base class and call `resolveExecutionContext()` – full context resolution with Security Center integration is automatic!**
+** Extend the appropriate controller base class and call `resolveExecutionContext()` – full context resolution with Security Center integration is automatic!**
 
-### 🏗️ Infrastructure Components Included
+### Infrastructure Components Included
 
-- ✅ **Banner** - Firefly Application Layer banner (banner.txt)
-- ✅ **Health Checks** - ApplicationLayerHealthIndicator for /actuator/health
-- ✅ **Structured Logging** - JSON logging via logback-spring.xml with MDC support
-- ✅ **Caching** - Integration with lib-common-cache (Caffeine/Redis)
-- ✅ **CQRS Support** - Command/Query separation via lib-common-cqrs
-- ✅ **Event-Driven Architecture** - Event publishing via lib-common-eda
-- ✅ **Actuator Integration** - Full Spring Boot Actuator support
+-  **Banner** - Firefly Application Layer banner (banner.txt)
+-  **Health Checks** - ApplicationLayerHealthIndicator for /actuator/health
+-  **Structured Logging** - JSON logging via logback-spring.xml with MDC support
+-  **Caching** - Integration with lib-common-cache (Caffeine/Redis)
+-  **CQRS Support** - Command/Query separation via lib-common-cqrs
+-  **Event-Driven Architecture** - Event publishing via lib-common-eda
+-  **Actuator Integration** - Full Spring Boot Actuator support
 
-### 🔥 Application Metadata with @FireflyApplication
+### Application Metadata with @FireflyApplication
 
 Declare metadata about your microservice for service discovery, monitoring, and governance:
 
@@ -148,7 +149,7 @@ public class CustomerOnboardingApplication {
 - 📈 **Monitoring** - Metadata exposed via `/actuator/info`
 - 📖 **Self-Documentation** - Services document themselves
 
-### 📐 Context Architecture
+### Context Architecture
 
 The library provides a comprehensive context model for application requests:
 
@@ -208,7 +209,7 @@ public class MyServiceApplication {
 
 **The library provides two base controller classes** that automatically resolve context based on your endpoint's scope:
 
-#### 🎯 Architecture: How Context Resolution Works
+####Architecture: How Context Resolution Works
 
 ```
 ┌──────────────────────────────────────────────────┐
@@ -242,12 +243,12 @@ public class MyServiceApplication {
 ```
 
 **Key Points:**
-- ✅ **Istio handles authentication** → Injects `X-Party-Id` header (from JWT)
-- ✅ **Config-mgmt resolves tenant** → `GET /api/v1/parties/{partyId}/tenant`
-- ✅ **Controllers extract path variables** → `@PathVariable UUID contractId/productId`
-- ✅ **FireflySessionManager (Security Center)** → Provides party session: contracts, roles, permissions, scopes
-- ✅ **Library resolves full context** → Party + Tenant + Contract + Product + Roles + Permissions + Config
-- ✅ **@Secure / EndpointSecurityRegistry** → Validates authorization using resolved context
+- **Istio handles authentication** → Injects `X-Party-Id` header (from JWT)
+- **Config-mgmt resolves tenant** → `GET /api/v1/parties/{partyId}/tenant`
+- **Controllers extract path variables** → `@PathVariable UUID contractId/productId`
+- **FireflySessionManager (Security Center)** → Provides party session: contracts, roles, permissions, scopes
+- **Library resolves full context** → Party + Tenant + Contract + Product + Roles + Permissions + Config
+- **@Secure / EndpointSecurityRegistry** → Validates authorization using resolved context
 
 #### 🎯 Option 1: Application-Layer Endpoints (Onboarding, Product Catalog)
 
@@ -278,7 +279,7 @@ public class OnboardingController extends AbstractApplicationController {
 
 ---
 
-#### 🎯 Option 2: Resource Endpoints (Accounts, Transactions, Cards)
+#### Option 2: Resource Endpoints (Accounts, Transactions, Cards)
 
 Use `AbstractResourceController` for endpoints that require BOTH contract and product context:
 
@@ -309,17 +310,17 @@ public class TransactionController extends AbstractResourceController {
 ---
 
 **What the library handles automatically:**
-- ✅ Extracts `partyId` from Istio header (`X-Party-Id`)
-- ✅ Resolves `tenantId` by calling `common-platform-config-mgmt` with the partyId
-- ✅ Uses `contractId` and `productId` from your `@PathVariable` annotations
-- ✅ Enriches context with roles and permissions from platform SDKs
-- ✅ Loads tenant configuration (providers, feature flags, settings)
-- ✅ Validates security requirements from `@Secure` annotations
-- ✅ Returns 401/403 for unauthorized requests
+- Extracts `partyId` from Istio header (`X-Party-Id`)
+- Resolves `tenantId` by calling `common-platform-config-mgmt` with the partyId
+- Uses `contractId` and `productId` from your `@PathVariable` annotations
+- Enriches context with roles and permissions from platform SDKs
+- Loads tenant configuration (providers, feature flags, settings)
+- Validates security requirements from `@Secure` annotations
+- Returns 401/403 for unauthorized requests
 
 ---
 
-#### 🔧 Advanced: Custom Context Resolution (Optional)
+#### Advanced: Custom Context Resolution (Optional)
 
 If you need custom context resolution logic (e.g., non-Istio environments), you can provide your own implementations:
 
@@ -458,7 +459,7 @@ public class TransactionController extends AbstractResourceController {
 
 ## Key Features
 
-### 🎯 Context Management (Controller-Based)
+### Context Management (Controller-Based)
 - **Istio Integration**: `X-Party-Id` extracted from header (Istio-injected after JWT validation)
 - **Tenant Resolution**: `tenantId` resolved by calling `common-platform-config-mgmt` with partyId
 - **Path Variable Extraction**: `contractId` and `productId` extracted from `@PathVariable` in controllers
@@ -468,7 +469,7 @@ public class TransactionController extends AbstractResourceController {
 - **Caching**: Built-in caching for performance optimization
 - **Immutability**: Thread-safe context objects
 
-### 🔒 Security & Authorization (Controller-Based)
+### Security & Authorization (Controller-Based)
 - **Declarative**: `@Secure` annotation with `requireParty`, `requireContract`, `requireProduct`, `requireRole`, `requirePermission`
 - **Context-Aware**: Security validation based on fully resolved ApplicationExecutionContext
 - **Default Authorization**: `DefaultSecurityAuthorizationService` validates roles and permissions automatically
@@ -476,13 +477,13 @@ public class TransactionController extends AbstractResourceController {
 - **Role & Permission Based**: Fine-grained access control based on party role in contract/product
 - **Flexible**: Works with both controller types (application, resource)
 
-### ⚙️ Configuration Management
+### Configuration Management
 - **Multi-tenant**: Per-tenant configuration and provider settings
 - **Feature Flags**: A/B testing and gradual rollouts
 - **Provider Configs**: Payment gateways, KYC providers, etc.
 - **Caching**: Configurable TTL for performance
 
-### 🎭 Business Process Orchestration
+### Business Process Orchestration
 - **Cross-domain Coordination**: Orchestrate multiple domain services
 - **Transaction Management**: Clear transaction boundaries
 - **Error Handling**: Compensating transactions support
@@ -502,9 +503,9 @@ This library implements several industry-standard patterns:
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed explanations.
 
-## 📚 Complete Documentation
+## Complete Documentation
 
-### 🔥 Essential Reading
+### Essential Reading
 
 | Document | Description | When to Read |
 |----------|-------------|-------------|
@@ -514,7 +515,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed explanations.
 | **[USAGE_GUIDE.md](docs/USAGE_GUIDE.md)** | Step-by-step implementation guide with examples | 🚀 Getting started guide |
 | **[API_REFERENCE.md](docs/API_REFERENCE.md)** | Complete API documentation for all classes and methods | 📑 Reference when developing |
 
-### 📖 Architecture Documentation
+### Architecture Documentation
 
 The [ARCHITECTURE.md](docs/ARCHITECTURE.md) document provides:
 - Complete architectural overview with layer responsibilities
@@ -524,7 +525,7 @@ The [ARCHITECTURE.md](docs/ARCHITECTURE.md) document provides:
 - 10 Architecture Decision Records (ADRs)
 - Best practices and guidelines
 
-### 🚀 Usage Guide
+### Usage Guide
 
 The [USAGE_GUIDE.md](docs/USAGE_GUIDE.md) includes:
 - Getting started instructions
@@ -534,7 +535,7 @@ The [USAGE_GUIDE.md](docs/USAGE_GUIDE.md) includes:
 - Troubleshooting common issues
 - Debug tips and monitoring
 
-### 📋 API Reference
+### API Reference
 
 The [API_REFERENCE.md](docs/API_REFERENCE.md) provides:
 - Complete class and method documentation
@@ -556,16 +557,16 @@ The library provides clear integration points (marked with TODO) for:
 - Retrieve feature flags
 - Manage tenant-specific settings
 
-### 2. FireflySessionManager (Security Center) ✅ **INTEGRATED**
+### 2. FireflySessionManager (Security Center) **INTEGRATED**
 **Purpose:** Authorization, session management, role/permission resolution
 
-**Status:** ✅ **Fully integrated and operational**
+**Status:** **Fully integrated and operational**
 
 **Integration Points:**
-- ✅ `DefaultContextResolver` - Automatically resolves roles and permissions from session
-- ✅ `DefaultSecurityAuthorizationService` - Validates product access and permissions
-- ✅ `SessionContextMapper` - Utility for extracting roles/permissions from session data
-- ✅ Graceful degradation when Security Center is unavailable
+- `DefaultContextResolver` - Automatically resolves roles and permissions from session
+- `DefaultSecurityAuthorizationService` - Validates product access and permissions
+- `SessionContextMapper` - Utility for extracting roles/permissions from session data
+- Graceful degradation when Security Center is unavailable
 
 **Key Features:**
 - **Party Session Management:** Tracks which contracts a party has access to
@@ -594,8 +595,8 @@ sessionManager.createOrGetSession(exchange)
     });
 
 // 4. Authorization checks product access automatically
-sessionManager.hasAccessToProduct(partyId, productId); // ✅
-sessionManager.hasPermission(partyId, productId, "READ", "BALANCE"); // ✅
+sessionManager.hasAccessToProduct(partyId, productId);
+sessionManager.hasPermission(partyId, productId, "READ", "BALANCE");
 ```
 
 **Permission Format:** `{roleCode}:{actionType}:{resourceType}`
@@ -610,14 +611,14 @@ sessionManager.hasPermission(partyId, productId, "READ", "BALANCE"); // ✅
 
 ## Design Principles
 
-### ✅ SOLID Principles
+### SOLID Principles
 - **Single Responsibility**: Each class has one clear purpose
 - **Open/Closed**: Extensible via abstract classes and interfaces
 - **Liskov Substitution**: All abstractions can be safely substituted
 - **Interface Segregation**: Focused, cohesive interfaces
 - **Dependency Inversion**: Depend on abstractions, not concretions
 
-### ✅ Best Practices
+### Best Practices
 - **Immutability**: All context objects are immutable
 - **Reactive First**: Non-blocking, composable operations
 - **Fail Fast**: Early validation prevents cascading failures
@@ -648,7 +649,7 @@ firefly:
 
 The library integrates with `lib-common-cache` (FireflyCacheManager) to provide efficient tenant configuration caching.
 
-### 📦 What's Cached?
+### What's Cached?
 
 - **Tenant Configurations**: Cached with 1-hour TTL (configurable)
   - Tenant settings
@@ -660,7 +661,7 @@ The library integrates with `lib-common-cache` (FireflyCacheManager) to provide 
 - Example: `firefly:application:config:123e4567-e89b-12d3-a456-426614174000`
 - Follows Firefly naming conventions for proper namespace organization
 
-### ⚙️ Cache Configuration
+### Cache Configuration
 
 Caching is configured via `application.yml` and auto-configured by `lib-common-cache`:
 
@@ -684,17 +685,17 @@ firefly:
 ### 🔄 Cache Behavior
 
 **With FireflyCacheManager Available:**
-- ✅ Tenant configs cached with TTL
-- ✅ Automatic eviction policies
-- ✅ Cache statistics and monitoring
-- ✅ Support for distributed caching (Redis)
+- Tenant configs cached with TTL
+- Automatic eviction policies
+- Cache statistics and monitoring
+- Support for distributed caching (Redis)
 
 **Without FireflyCacheManager (Graceful Degradation):**
-- ⚠️ Caching disabled - fetches from platform every time
-- ✅ Service continues to function normally
-- ⚠️ Higher latency and platform load
+- Caching disabled - fetches from platform every time
+- Service continues to function normally
+- Higher latency and platform load
 
-### 🚀 Cache Operations
+### Cache Operations
 
 **Manual Cache Control:**
 
@@ -717,7 +718,7 @@ public class ConfigManagementService {
 }
 ```
 
-### 📊 Cache Monitoring
+### Cache Monitoring
 
 Cache metrics are exposed via Spring Boot Actuator:
 
@@ -733,7 +734,7 @@ GET /actuator/metrics/cache.gets
 GET /actuator/metrics/cache.evictions
 ```
 
-### 🔧 Custom TTL
+### Custom TTL
 
 You can customize cache TTL per resolver:
 
@@ -754,7 +755,7 @@ public class CustomConfigResolver extends AbstractConfigResolver {
 }
 ```
 
-### 💡 Best Practices
+### Best Practices
 
 1. **Use Caffeine for Single-Instance Apps**: Fast in-memory caching
 2. **Use Redis for Distributed Apps**: Shared cache across instances
@@ -763,6 +764,163 @@ public class CustomConfigResolver extends AbstractConfigResolver {
 5. **Enable Cache Statistics**: Track cache effectiveness
 
 For more details, see [lib-common-cache documentation](../lib-common-cache/README.md).
+
+## Plugin Architecture
+
+The Plugin Architecture enables Firefly application microservices to act as **"containers"** exposing standard Banking as a Service (BaaS) APIs, while the underlying business logic is **pluggable**, **composable**, and **dynamically resolved** at runtime through configuration.
+
+### Key Features
+
+- **Pluggable Business Logic**: Swap vanilla implementations with custom ones without code changes
+- **Runtime Resolution**: Process plugins resolved based on tenant, product, and channel configuration
+- **Multiple Loading Strategies**: Spring beans, external JARs, or remote repositories
+- **Hot-Reload Support**: Update plugins without application restart (JAR/Remote loaders)
+- **Security Sandbox**: Isolated execution for external plugins
+
+### Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Banking as a Service APIs                    │
+│     (Standard REST Endpoints - /api/v1/accounts, etc.)          │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+┌───────────────────────────────▼─────────────────────────────────┐
+│              EXISTING Controller Layer (UNCHANGED)              │
+│   AbstractApplicationController / AbstractResourceController    │
+│   • ContextResolver → partyId, tenantId, contractId             │
+│   • @Secure + SecurityAspect → FireflySessionManager            │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+┌───────────────────────────────▼─────────────────────────────────┐
+│               ENHANCED Service Layer (NEW)                      │
+│    AbstractApplicationService + ProcessPluginExecutor           │
+│    • executeProcess(context, operationId, input)                │
+│    • Process resolved based on tenant/product config            │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+┌───────────────────────────────▼─────────────────────────────────┐
+│                    Process Plugin Layer                         │
+│   ┌────────────────┐  ┌────────────────┐  ┌────────────────┐    │
+│   │ Vanilla Process│  │ Custom Process │  │ Workflow-Based │    │
+│   │ (Default impl) │  │(Tenant-specif.)│  │    Process     │    │
+│   └────────────────┘  └────────────────┘  └────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Quick Start
+
+#### 1. Create a Process Plugin
+
+```java
+@FireflyProcess(
+    id = "vanilla-account-creation",
+    name = "Standard Account Creation",
+    version = "1.0.0",
+    capabilities = {"ACCOUNT_CREATION"},
+    requiredPermissions = {"accounts:create"}
+)
+public class VanillaAccountCreationProcess implements ProcessPlugin {
+    
+    private final AccountDomainService accountService;
+    
+    @Override
+    public Mono<ProcessResult> execute(ProcessExecutionContext context) {
+        AccountCreationRequest request = context.getInput(AccountCreationRequest.class);
+        return accountService.createAccount(context.getAppContext(), request)
+            .map(ProcessResult::success);
+    }
+}
+```
+
+#### 2. Use ProcessPluginExecutor in Your Service
+
+```java
+@Service
+public class AccountApplicationService extends AbstractApplicationService {
+    
+    private final ProcessPluginExecutor processExecutor;
+    
+    public Mono<AccountResponse> createAccount(
+            ApplicationExecutionContext context,
+            AccountCreationRequest request) {
+        
+        // Delegate to plugin system - process resolved based on tenant/product config
+        return processExecutor.executeProcess(context, "createAccount", toMap(request))
+            .map(result -> result.getOutput(AccountResponse.class));
+    }
+}
+```
+
+#### 3. Configure API-to-Process Mapping
+
+In `common-platform-config-mgmt`, configure which process handles each operation:
+
+```json
+{
+  "tenantId": "acme-bank-uuid",
+  "operationId": "createAccount",
+  "processId": "acme-bank-account-creation",
+  "processVersion": "1.0.0"
+}
+```
+
+### Core Components
+
+| Component | Purpose |
+|-----------|----------|
+| `ProcessPlugin` | Core interface for pluggable business logic |
+| `@FireflyProcess` | Annotation to mark Spring beans as plugins |
+| `ProcessPluginRegistry` | Thread-safe registry of loaded plugins |
+| `ProcessPluginExecutor` | Orchestration service for executing plugins |
+| `ProcessMappingService` | Resolves operations to processes via config |
+| `SpringBeanPluginLoader` | Discovers plugins from Spring context |
+| `JarPluginLoader` | Loads plugins from external JAR files |
+| `RemoteRepositoryPluginLoader` | Downloads and loads plugins from Maven/HTTP |
+
+### Configuration
+
+```yaml
+firefly:
+  application:
+    plugin:
+      enabled: true
+      loaders:
+        spring-bean:
+          enabled: true
+          priority: 0
+        jar:
+          enabled: true
+          priority: 10
+          scan-directories:
+            - /opt/firefly/plugins
+          hot-reload: true
+        remote:
+          enabled: true
+          priority: 20
+          cache-directory: /var/firefly/plugin-cache
+          repositories:
+            - type: maven
+              name: firefly-plugins
+              url: https://repo.firefly.io/plugins
+            - type: http
+              name: custom-plugins
+              url: https://plugins.mybank.com
+      security:
+        sandbox-enabled: true
+      cache:
+        enabled: true
+        ttl: PT1H
+```
+
+### Plugin Architecture Documentation
+
+The plugin architecture is **self-contained** within `lib-common-application`. You do **NOT** need a separate library to create plugins - simply depend on this library.
+
+For detailed documentation, see:
+- **[Plugin Development Guide](docs/PLUGIN_DEVELOPMENT_GUIDE.md)** - Comprehensive tutorial for creating plugins
+- [AbstractProcessPlugin](src/main/java/com/firefly/common/application/plugin/AbstractProcessPlugin.java) - Type-safe base class for plugins
+- [Plugin Loading Strategies](docs/PLUGIN_LOADERS.md) - JAR, Maven, HTTP loading options
 
 ## Examples
 
@@ -814,9 +972,9 @@ return isFeatureEnabled(context, "NEW_PAYMENT_FLOW")
 
 ## Testing
 
-### ✅ Comprehensive Test Suite
+### Comprehensive Test Suite
 
-**180 tests - 100% passing**
+**250+ tests - 100% passing**
 
 The library includes extensive test coverage:
 - **Context Management**: 63 tests covering AppContext, AppConfig, AppMetadata, ApplicationExecutionContext
@@ -825,6 +983,7 @@ The library includes extensive test coverage:
 - **Integration Tests**: 25 tests for AOP Security and Metadata Provider
 - **Monitoring**: 11 tests for Health and Actuator
 - **Configuration**: 14 tests for ApplicationLayerProperties and Banner
+- **Plugin Architecture**: 65+ tests for ProcessPluginRegistry, ProcessPluginExecutor, AbstractProcessPlugin
 
 ```bash
 # Run all tests
@@ -838,9 +997,9 @@ mvn clean test jacoco:report
 ```
 
 **Test Metrics:**
-- Total Tests: 180
+- Total Tests: 250+
 - Success Rate: 100%
-- Execution Time: < 3s
+- Execution Time: < 5s
 - Core Coverage: ~95%+
 
 See [TESTING.md](docs/TESTING.md) for detailed documentation.
