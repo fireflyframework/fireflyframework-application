@@ -1,39 +1,47 @@
 package org.fireflyframework.common.application.spi;
 
+import org.fireflyframework.common.application.spi.dto.ContractInfoDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
- * SPI interface representing a user session context.
+ * Represents a user session context.
  * <p>
- * Platform-specific implementations should provide concrete implementations
- * that carry session metadata, user roles, scopes, and any domain-specific context.
+ * Carries session metadata, user roles, scopes, contracts, and any domain-specific context.
+ * Platform-specific implementations can extend this class to add additional fields.
  * </p>
+ *
+ * @author Firefly Development Team
+ * @since 1.0.0
  */
-public interface SessionContext {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SessionContext {
+
+    private String sessionId;
+    private UUID partyId;
+    private String userId;
+    private String tenantId;
+    private List<String> roles;
+    private List<String> scopes;
+    private Map<String, Object> attributes;
+    private List<ContractInfoDTO> activeContracts;
+    private LocalDateTime createdAt;
+    private SessionStatus status;
 
     /**
-     * @return the unique identifier of the authenticated user
+     * Session lifecycle status.
      */
-    String getUserId();
-
-    /**
-     * @return the tenant/organization identifier
-     */
-    String getTenantId();
-
-    /**
-     * @return the user's roles in the current session
-     */
-    List<String> getRoles();
-
-    /**
-     * @return the user's permissions/scopes in the current session
-     */
-    List<String> getScopes();
-
-    /**
-     * @return additional session attributes as key-value pairs
-     */
-    Map<String, Object> getAttributes();
+    public enum SessionStatus {
+        ACTIVE, EXPIRED, INVALIDATED
+    }
 }

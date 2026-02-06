@@ -19,6 +19,7 @@ package org.fireflyframework.application.security;
 import org.fireflyframework.application.context.AppContext;
 import org.fireflyframework.application.context.AppSecurityContext;
 import org.fireflyframework.application.util.SessionContextMapper;
+import org.fireflyframework.common.application.spi.SessionContext;
 import org.fireflyframework.common.application.spi.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +73,7 @@ import reactor.core.publisher.Mono;
 public class DefaultSecurityAuthorizationService extends AbstractSecurityAuthorizationService {
     
     @Autowired(required = false)
-    private final SessionManager sessionManager;
+    private final SessionManager<SessionContext> sessionManager;
     
     // The parent AbstractSecurityAuthorizationService already provides:
     // - Role checking (hasRole, hasAnyRole, hasAllRoles)

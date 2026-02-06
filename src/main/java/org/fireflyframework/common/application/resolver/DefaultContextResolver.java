@@ -18,6 +18,7 @@ package org.fireflyframework.application.resolver;
 
 import org.fireflyframework.application.context.AppContext;
 import org.fireflyframework.application.util.SessionContextMapper;
+import org.fireflyframework.common.application.spi.SessionContext;
 import org.fireflyframework.common.application.spi.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -112,7 +113,7 @@ import java.util.UUID;
 public class DefaultContextResolver extends AbstractContextResolver {
     
     @Autowired(required = false)
-    private final SessionManager sessionManager;
+    private final SessionManager<SessionContext> sessionManager;
     
     // TODO: Inject platform SDK clients when available
     // private final ConfigManagementClient configMgmtClient;  // For tenant resolution
