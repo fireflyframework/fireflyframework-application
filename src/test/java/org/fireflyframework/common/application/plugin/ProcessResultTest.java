@@ -16,7 +16,9 @@
 
 package org.fireflyframework.application.plugin;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -383,7 +385,9 @@ class ProcessResultTest {
     }
     
     // Test DTO for conversion tests
-    @Value
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     static class TestOutputDto {
         String name;
         int amount;
