@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.service;
+package org.fireflyframework.common.application.plugin.service;
 
-import org.fireflyframework.application.plugin.ProcessMapping;
+import org.fireflyframework.common.application.plugin.ProcessMapping;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin;
+package org.fireflyframework.common.application.plugin;
 
-import org.fireflyframework.application.plugin.annotation.FireflyProcess;
-import org.fireflyframework.application.plugin.exception.PluginExecutionException;
+import org.fireflyframework.common.application.plugin.annotation.FireflyProcess;
+import org.fireflyframework.common.application.plugin.exception.PluginExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 

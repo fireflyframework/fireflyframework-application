@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin;
+package org.fireflyframework.common.application.plugin;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin;
+package org.fireflyframework.common.application.plugin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.plugin.config.PluginObjectMapperConfig;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.plugin.config.PluginObjectMapperConfig;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.Value;

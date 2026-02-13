@@ -1,4 +1,4 @@
-package org.fireflyframework.application.security;
+package org.fireflyframework.common.application.security;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

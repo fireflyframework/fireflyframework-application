@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.loader;
+package org.fireflyframework.common.application.plugin.loader;
 
-import org.fireflyframework.application.plugin.ProcessPluginRegistry;
-import org.fireflyframework.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.ProcessPluginRegistry;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

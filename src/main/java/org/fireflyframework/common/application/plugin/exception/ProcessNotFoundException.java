@@ -14,22 +14,24 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.exception;
+package org.fireflyframework.common.application.plugin.exception;
+
+import org.fireflyframework.kernel.exception.FireflyException;
 
 /**
  * Exception thrown when a process plugin cannot be found in the registry.
- * 
+ *
  * <p>This exception is thrown when:</p>
  * <ul>
  *   <li>A process mapping references a process ID that is not registered</li>
  *   <li>A specific version of a process is requested but not available</li>
  *   <li>A process was unloaded or failed to initialize</li>
  * </ul>
- * 
+ *
  * @author Firefly Development Team
  * @since 1.0.0
  */
-public class ProcessNotFoundException extends RuntimeException {
+public class ProcessNotFoundException extends FireflyException {
     
     private final String processId;
     private final String processVersion;

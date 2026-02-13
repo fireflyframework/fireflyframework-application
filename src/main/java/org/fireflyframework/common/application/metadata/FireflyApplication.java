@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.metadata;
+package org.fireflyframework.common.application.metadata;
 
 import org.springframework.stereotype.Indexed;
 

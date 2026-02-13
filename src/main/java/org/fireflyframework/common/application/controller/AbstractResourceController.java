@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.controller;
+package org.fireflyframework.common.application.controller;
 
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.resolver.ContextResolver;
-import org.fireflyframework.application.resolver.ConfigResolver;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.resolver.ContextResolver;
+import org.fireflyframework.common.application.resolver.ConfigResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ServerWebExchange;

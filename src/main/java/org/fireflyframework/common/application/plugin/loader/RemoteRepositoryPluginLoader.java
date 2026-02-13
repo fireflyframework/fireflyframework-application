@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.loader;
+package org.fireflyframework.common.application.plugin.loader;
 
-import org.fireflyframework.application.plugin.ProcessPlugin;
-import org.fireflyframework.application.plugin.ProcessPluginRegistry;
-import org.fireflyframework.application.plugin.config.PluginProperties;
-import org.fireflyframework.application.plugin.config.PluginProperties.CircuitBreakerProperties;
-import org.fireflyframework.application.plugin.config.PluginProperties.RepositoryConfig;
+import org.fireflyframework.common.application.plugin.ProcessPlugin;
+import org.fireflyframework.common.application.plugin.ProcessPluginRegistry;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.config.PluginProperties.CircuitBreakerProperties;
+import org.fireflyframework.common.application.plugin.config.PluginProperties.RepositoryConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.metadata;
+package org.fireflyframework.common.application.metadata;
 
-import org.fireflyframework.application.context.AppMetadata;
+import org.fireflyframework.common.application.context.AppMetadata;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.resolver;
+package org.fireflyframework.common.application.resolver;
 
-import org.fireflyframework.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,10 @@
-package org.fireflyframework.application.controller;
+package org.fireflyframework.common.application.controller;
 
-import org.fireflyframework.application.context.AppConfig;
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.resolver.ConfigResolver;
-import org.fireflyframework.application.resolver.ContextResolver;
+import org.fireflyframework.common.application.context.AppConfig;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.resolver.ConfigResolver;
+import org.fireflyframework.common.application.resolver.ContextResolver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.config;
+package org.fireflyframework.common.application.plugin.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

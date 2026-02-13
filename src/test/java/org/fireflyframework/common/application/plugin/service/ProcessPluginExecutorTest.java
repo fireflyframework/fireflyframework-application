@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.service;
+package org.fireflyframework.common.application.plugin.service;
 
-import org.fireflyframework.application.context.AppConfig;
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.plugin.*;
-import org.fireflyframework.application.plugin.config.PluginProperties;
-import org.fireflyframework.application.plugin.event.PluginEventPublisher;
-import org.fireflyframework.application.plugin.exception.ProcessNotFoundException;
-import org.fireflyframework.application.plugin.metrics.PluginMetricsService;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.context.AppConfig;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.plugin.*;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.event.PluginEventPublisher;
+import org.fireflyframework.common.application.plugin.exception.ProcessNotFoundException;
+import org.fireflyframework.common.application.plugin.metrics.PluginMetricsService;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.health;
+package org.fireflyframework.common.application.plugin.health;
 
-import org.fireflyframework.application.plugin.HealthStatus;
-import org.fireflyframework.application.plugin.ProcessPlugin;
-import org.fireflyframework.application.plugin.ProcessPluginRegistry;
-import org.fireflyframework.application.plugin.config.PluginProperties;
-import org.fireflyframework.application.plugin.event.PluginEventPublisher;
+import org.fireflyframework.common.application.plugin.HealthStatus;
+import org.fireflyframework.common.application.plugin.ProcessPlugin;
+import org.fireflyframework.common.application.plugin.ProcessPluginRegistry;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.event.PluginEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.health.Health;

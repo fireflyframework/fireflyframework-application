@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.config;
+package org.fireflyframework.common.application.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -62,17 +62,34 @@ public class ApplicationLayerProperties {
          * Whether security is enabled
          */
         private boolean enabled = true;
-        
+
+        /**
+         * Whether to enforce authorization (set to false for development).
+         * When false, authorization checks are logged but not enforced.
+         */
+        private boolean enforce = true;
+
         /**
          * Whether to use SecurityCenter for authorization
          */
         private boolean useSecurityCenter = true;
-        
+
+        /**
+         * Claim path in JWT token for extracting roles.
+         * Supports: "roles", "realm_access.roles" (Keycloak), "cognito:groups" (Cognito).
+         */
+        private String jwtRolesClaimPath = "roles";
+
+        /**
+         * Claim path in JWT token for extracting permissions.
+         */
+        private String jwtPermissionsClaimPath = "permissions";
+
         /**
          * Default roles when no explicit security is configured
          */
         private String[] defaultRoles = {};
-        
+
         /**
          * Whether to fail on missing security configuration
          */

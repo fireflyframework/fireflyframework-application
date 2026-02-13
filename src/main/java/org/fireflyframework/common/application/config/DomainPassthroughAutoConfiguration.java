@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.config;
+package org.fireflyframework.common.application.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;

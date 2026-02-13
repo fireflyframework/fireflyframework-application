@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.integration;
+package org.fireflyframework.common.application.integration;
 
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppSecurityContext;
-import org.fireflyframework.application.security.DefaultSecurityAuthorizationService;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppSecurityContext;
+import org.fireflyframework.common.application.security.DefaultSecurityAuthorizationService;
 import org.fireflyframework.common.application.spi.SessionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

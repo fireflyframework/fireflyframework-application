@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.integration;
+package org.fireflyframework.common.application.integration;
 
-import org.fireflyframework.application.context.AppConfig;
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.controller.AbstractApplicationController;
-import org.fireflyframework.application.controller.AbstractResourceController;
-import org.fireflyframework.application.resolver.ConfigResolver;
-import org.fireflyframework.application.resolver.ContextResolver;
+import org.fireflyframework.common.application.context.AppConfig;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.controller.AbstractApplicationController;
+import org.fireflyframework.common.application.controller.AbstractResourceController;
+import org.fireflyframework.common.application.resolver.ConfigResolver;
+import org.fireflyframework.common.application.resolver.ContextResolver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

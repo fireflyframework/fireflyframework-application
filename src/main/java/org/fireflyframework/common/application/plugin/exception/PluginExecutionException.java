@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.exception;
+package org.fireflyframework.common.application.plugin.exception;
 
 import lombok.Getter;
+import org.fireflyframework.kernel.exception.FireflyException;
 
 /**
  * Exception thrown when a plugin execution fails.
- * 
+ *
  * <p>This exception preserves context about the failed execution,
  * including the process ID, version, and phase where the failure occurred.</p>
- * 
+ *
  * <h3>Execution Phases</h3>
  * <ul>
  *   <li>{@code INITIALIZATION} - Plugin init failed</li>
@@ -33,12 +34,12 @@ import lombok.Getter;
  *   <li>{@code COMPENSATION} - Compensation/rollback failed</li>
  *   <li>{@code OUTPUT_CONVERSION} - Failed to convert output</li>
  * </ul>
- * 
+ *
  * @author Firefly Development Team
  * @since 1.0.0
  */
 @Getter
-public class PluginExecutionException extends RuntimeException {
+public class PluginExecutionException extends FireflyException {
     
     /**
      * Phase of plugin execution where the error occurred.

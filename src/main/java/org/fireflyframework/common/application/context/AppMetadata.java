@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.context;
+package org.fireflyframework.common.application.context;
 
 import lombok.Builder;
 import lombok.Value;
@@ -80,7 +80,7 @@ import java.util.Set;
  * 
  * @author Firefly Development Team
  * @since 1.0.0
- * @see org.fireflyframework.application.metadata.FireflyApplication
+ * @see org.fireflyframework.common.application.metadata.FireflyApplication
  */
 @Value
 @Builder(toBuilder = true)

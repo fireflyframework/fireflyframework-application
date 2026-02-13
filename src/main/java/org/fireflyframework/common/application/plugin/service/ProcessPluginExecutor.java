@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.service;
+package org.fireflyframework.common.application.plugin.service;
 
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.plugin.ProcessExecutionContext;
-import org.fireflyframework.application.plugin.ProcessMapping;
-import org.fireflyframework.application.plugin.ProcessMetadata;
-import org.fireflyframework.application.plugin.ProcessPlugin;
-import org.fireflyframework.application.plugin.ProcessPluginRegistry;
-import org.fireflyframework.application.plugin.ProcessResult;
-import org.fireflyframework.application.plugin.ValidationResult;
-import org.fireflyframework.application.plugin.config.PluginProperties;
-import org.fireflyframework.application.plugin.event.PluginEventPublisher;
-import org.fireflyframework.application.plugin.exception.ProcessNotFoundException;
-import org.fireflyframework.application.plugin.metrics.PluginMetricsService;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.plugin.ProcessExecutionContext;
+import org.fireflyframework.common.application.plugin.ProcessMapping;
+import org.fireflyframework.common.application.plugin.ProcessMetadata;
+import org.fireflyframework.common.application.plugin.ProcessPlugin;
+import org.fireflyframework.common.application.plugin.ProcessPluginRegistry;
+import org.fireflyframework.common.application.plugin.ProcessResult;
+import org.fireflyframework.common.application.plugin.ValidationResult;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.event.PluginEventPublisher;
+import org.fireflyframework.common.application.plugin.exception.ProcessNotFoundException;
+import org.fireflyframework.common.application.plugin.metrics.PluginMetricsService;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.security;
+package org.fireflyframework.common.application.security;
 
-import org.fireflyframework.application.context.AppSecurityContext;
+import org.fireflyframework.common.application.context.AppSecurityContext;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;

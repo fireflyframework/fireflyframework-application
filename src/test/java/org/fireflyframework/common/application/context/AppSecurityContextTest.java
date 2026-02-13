@@ -1,7 +1,7 @@
-package org.fireflyframework.application.context;
+package org.fireflyframework.common.application.context;
 
-import org.fireflyframework.application.context.AppSecurityContext.SecurityConfigSource;
-import org.fireflyframework.application.context.AppSecurityContext.SecurityEvaluationResult;
+import org.fireflyframework.common.application.context.AppSecurityContext.SecurityConfigSource;
+import org.fireflyframework.common.application.context.AppSecurityContext.SecurityEvaluationResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 

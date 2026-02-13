@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.security;
+package org.fireflyframework.common.application.security;
 
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppSecurityContext;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppSecurityContext;
 import reactor.core.publisher.Mono;
 
 import java.util.Set;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.loader;
+package org.fireflyframework.common.application.plugin.loader;
 
 import lombok.Builder;
 import lombok.Singular;

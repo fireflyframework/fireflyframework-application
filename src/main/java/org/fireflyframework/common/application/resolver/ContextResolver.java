@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.resolver;
+package org.fireflyframework.common.application.resolver;
 
-import org.fireflyframework.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppContext;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 

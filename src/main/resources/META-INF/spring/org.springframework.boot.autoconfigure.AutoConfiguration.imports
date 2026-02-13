@@ -1,4 +1,4 @@
-org.fireflyframework.application.config.ConfigCacheAutoConfiguration
-org.fireflyframework.application.config.DomainPassthroughAutoConfiguration
-org.fireflyframework.application.plugin.config.PluginAutoConfiguration
-org.fireflyframework.application.plugin.resolver.ProcessMappingResolverAutoConfiguration
+org.fireflyframework.common.application.config.ConfigCacheAutoConfiguration
+org.fireflyframework.common.application.config.DomainPassthroughAutoConfiguration
+org.fireflyframework.common.application.plugin.config.PluginAutoConfiguration
+org.fireflyframework.common.application.plugin.resolver.ProcessMappingResolverAutoConfiguration

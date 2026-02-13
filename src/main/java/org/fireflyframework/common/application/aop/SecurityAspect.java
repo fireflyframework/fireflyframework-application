@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.aop;
+package org.fireflyframework.common.application.aop;
 
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppSecurityContext;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.security.EndpointSecurityRegistry;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
-import org.fireflyframework.application.security.annotation.Secure;
+import org.fireflyframework.common.application.config.ApplicationLayerProperties;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppSecurityContext;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.security.EndpointSecurityRegistry;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.security.annotation.Secure;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -29,6 +30,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Method;
@@ -53,6 +55,7 @@ public class SecurityAspect {
     
     private final SecurityAuthorizationService authorizationService;
     private final EndpointSecurityRegistry endpointSecurityRegistry;
+    private final ApplicationLayerProperties properties;
     
     /**
      * Intercepts methods annotated with @Secure.
@@ -88,19 +91,32 @@ public class SecurityAspect {
                     return buildSecurityContext(secure, joinPoint, endpoint, httpMethod);
                 });
         
+        // Check if security is disabled
+        if (!properties.getSecurity().isEnabled()) {
+            log.debug("Security is disabled, allowing access to {}", endpoint);
+            return joinPoint.proceed();
+        }
+
         // Perform authorization
         return authorizationService.authorize(executionContext.getContext(), securityContext)
                 .flatMap(authorizedContext -> {
                     if (!authorizedContext.isAuthorized()) {
-                        log.warn("Access denied for party: {} to endpoint: {}, reason: {}",
-                                executionContext.getPartyId(),
-                                securityContext.getEndpoint(),
-                                authorizedContext.getAuthorizationFailureReason());
-                        return Mono.error(new AccessDeniedException(
-                                authorizedContext.getAuthorizationFailureReason() != null
-                                        ? authorizedContext.getAuthorizationFailureReason()
-                                        : "Access denied"
-                        ));
+                        if (!properties.getSecurity().isEnforce()) {
+                            log.warn("ACCESS WOULD BE DENIED (enforce=false) for party: {} to endpoint: {}, reason: {}",
+                                    executionContext.getPartyId(),
+                                    securityContext.getEndpoint(),
+                                    authorizedContext.getAuthorizationFailureReason());
+                        } else {
+                            log.warn("Access denied for party: {} to endpoint: {}, reason: {}",
+                                    executionContext.getPartyId(),
+                                    securityContext.getEndpoint(),
+                                    authorizedContext.getAuthorizationFailureReason());
+                            return Mono.error(new AccessDeniedException(
+                                    authorizedContext.getAuthorizationFailureReason() != null
+                                            ? authorizedContext.getAuthorizationFailureReason()
+                                            : "Access denied"
+                            ));
+                        }
                     }
                     
                     try {
@@ -124,7 +140,7 @@ public class SecurityAspect {
      * @return the method result
      * @throws Throwable if method execution fails
      */
-    @Around("@within(secure) && !@annotation(org.fireflyframework.application.security.annotation.Secure)")
+    @Around("@within(secure) && !@annotation(org.fireflyframework.common.application.security.annotation.Secure)")
     public Object secureClass(ProceedingJoinPoint joinPoint, Secure secure) throws Throwable {
         return secureMethod(joinPoint, secure);
     }
@@ -158,11 +174,17 @@ public class SecurityAspect {
      * @param httpMethod the HTTP method
      * @return the security context
      */
-    private AppSecurityContext buildSecurityContext(Secure secure, ProceedingJoinPoint joinPoint, 
+    private AppSecurityContext buildSecurityContext(Secure secure, ProceedingJoinPoint joinPoint,
                                                     String endpoint, String httpMethod) {
         Set<String> roles = new HashSet<>(Arrays.asList(secure.roles()));
         Set<String> permissions = new HashSet<>(Arrays.asList(secure.permissions()));
-        
+
+        // Use SECURITY_CENTER only if both the global property and annotation agree
+        boolean useSecurityCenter = properties.getSecurity().isUseSecurityCenter() && secure.useSecurityCenter();
+        AppSecurityContext.SecurityConfigSource configSource = useSecurityCenter
+                ? AppSecurityContext.SecurityConfigSource.SECURITY_CENTER
+                : AppSecurityContext.SecurityConfigSource.ANNOTATION;
+
         return AppSecurityContext.builder()
                 .endpoint(endpoint)
                 .httpMethod(httpMethod)
@@ -170,32 +192,84 @@ public class SecurityAspect {
                 .requiredPermissions(permissions)
                 .requiresAuthentication(secure.requiresAuthentication())
                 .allowAnonymous(secure.allowAnonymous())
-                .configSource(AppSecurityContext.SecurityConfigSource.ANNOTATION)
+                .configSource(configSource)
                 .build();
     }
     
     /**
-     * Extracts endpoint path from join point.
-     * TODO: Extract from @RequestMapping annotations for accurate endpoint paths
-     * 
-     * @param joinPoint the join point
-     * @return the endpoint path
+     * Extracts endpoint path from join point by reading Spring MVC mapping annotations.
+     * Falls back to class.method signature if no mapping annotations found.
      */
     private String extractEndpoint(ProceedingJoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        // TODO: Parse @RequestMapping, @GetMapping, @PostMapping etc. to get actual endpoint
+        Method method = signature.getMethod();
+        Class<?> declaringClass = method.getDeclaringClass();
+
+        // Get class-level base path
+        String basePath = "";
+        RequestMapping classMapping = declaringClass.getAnnotation(RequestMapping.class);
+        if (classMapping != null && classMapping.value().length > 0) {
+            basePath = classMapping.value()[0];
+        }
+
+        // Get method-level path from various mapping annotations
+        String methodPath = extractMethodPath(method);
+
+        if (methodPath != null) {
+            return normalizePath(basePath + methodPath);
+        }
+
+        // Fallback to class.method signature
         return signature.getDeclaringTypeName() + "." + signature.getName();
     }
-    
+
+    private String extractMethodPath(Method method) {
+        GetMapping get = method.getAnnotation(GetMapping.class);
+        if (get != null) return get.value().length > 0 ? get.value()[0] : "";
+
+        PostMapping post = method.getAnnotation(PostMapping.class);
+        if (post != null) return post.value().length > 0 ? post.value()[0] : "";
+
+        PutMapping put = method.getAnnotation(PutMapping.class);
+        if (put != null) return put.value().length > 0 ? put.value()[0] : "";
+
+        DeleteMapping delete = method.getAnnotation(DeleteMapping.class);
+        if (delete != null) return delete.value().length > 0 ? delete.value()[0] : "";
+
+        PatchMapping patch = method.getAnnotation(PatchMapping.class);
+        if (patch != null) return patch.value().length > 0 ? patch.value()[0] : "";
+
+        RequestMapping mapping = method.getAnnotation(RequestMapping.class);
+        if (mapping != null) return mapping.value().length > 0 ? mapping.value()[0] : "";
+
+        return null;
+    }
+
     /**
-     * Extracts HTTP method from join point.
-     * TODO: Extract from @GetMapping, @PostMapping, @PutMapping, @DeleteMapping annotations
-     * 
-     * @param joinPoint the join point
-     * @return the HTTP method
+     * Extracts HTTP method from join point by reading Spring MVC mapping annotations.
+     * Falls back to "UNKNOWN" if no mapping annotation found.
      */
     private String extractHttpMethod(ProceedingJoinPoint joinPoint) {
-        // TODO: Parse method annotations to determine HTTP method
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+
+        if (method.isAnnotationPresent(GetMapping.class)) return "GET";
+        if (method.isAnnotationPresent(PostMapping.class)) return "POST";
+        if (method.isAnnotationPresent(PutMapping.class)) return "PUT";
+        if (method.isAnnotationPresent(DeleteMapping.class)) return "DELETE";
+        if (method.isAnnotationPresent(PatchMapping.class)) return "PATCH";
+
+        RequestMapping mapping = method.getAnnotation(RequestMapping.class);
+        if (mapping != null && mapping.method().length > 0) {
+            return mapping.method()[0].name();
+        }
+
         return "UNKNOWN";
+    }
+
+    private String normalizePath(String path) {
+        if (path == null || path.isEmpty()) return "/";
+        if (!path.startsWith("/")) path = "/" + path;
+        return path.replaceAll("//+", "/");
     }
 }

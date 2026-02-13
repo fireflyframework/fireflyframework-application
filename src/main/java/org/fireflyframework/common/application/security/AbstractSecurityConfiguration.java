@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.security;
+package org.fireflyframework.common.application.security;
 
-import org.fireflyframework.application.security.EndpointSecurityRegistry.EndpointSecurity;
+import org.fireflyframework.common.application.security.EndpointSecurityRegistry.EndpointSecurity;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,7 +123,7 @@ import java.util.Set;
  * @author Firefly Development Team
  * @since 1.0.0
  * @see EndpointSecurityRegistry
- * @see org.fireflyframework.application.security.annotation.Secure
+ * @see org.fireflyframework.common.application.security.annotation.Secure
  */
 @Slf4j
 public abstract class AbstractSecurityConfiguration {

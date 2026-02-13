@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.integration;
+package org.fireflyframework.common.application.integration;
 
-import org.fireflyframework.application.context.AppMetadata;
-import org.fireflyframework.application.metadata.ApplicationMetadataProvider;
-import org.fireflyframework.application.metadata.FireflyApplication;
+import org.fireflyframework.common.application.context.AppMetadata;
+import org.fireflyframework.common.application.metadata.ApplicationMetadataProvider;
+import org.fireflyframework.common.application.metadata.FireflyApplication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

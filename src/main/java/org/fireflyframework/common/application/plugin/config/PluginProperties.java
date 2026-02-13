@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.config;
+package org.fireflyframework.common.application.plugin.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -326,8 +326,8 @@ public class PluginProperties {
                 "java.time",
                 "java.math",
                 "reactor.core",
-                "org.fireflyframework.application.plugin",
-                "org.fireflyframework.application.context"
+                "org.fireflyframework.common.application.plugin",
+                "org.fireflyframework.common.application.context"
         );
         
         /**

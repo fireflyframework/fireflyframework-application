@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.resolver;
+package org.fireflyframework.common.application.resolver;
 
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppMetadata;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppMetadata;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.resolver;
+package org.fireflyframework.common.application.resolver;
 
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.util.SessionContextMapper;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.util.SessionContextMapper;
 import org.fireflyframework.common.application.spi.SessionContext;
 import org.fireflyframework.common.application.spi.SessionManager;
 import lombok.RequiredArgsConstructor;
