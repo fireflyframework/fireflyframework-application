@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.loader;
+package org.fireflyframework.common.application.plugin.loader;
 
-import org.fireflyframework.application.plugin.ProcessPlugin;
+import org.fireflyframework.common.application.plugin.ProcessPlugin;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

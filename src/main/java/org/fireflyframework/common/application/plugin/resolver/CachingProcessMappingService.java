@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.resolver;
+package org.fireflyframework.common.application.plugin.resolver;
 
-import org.fireflyframework.application.plugin.ProcessMapping;
-import org.fireflyframework.application.plugin.config.PluginProperties;
-import org.fireflyframework.application.plugin.service.ProcessMappingService;
+import org.fireflyframework.common.application.plugin.ProcessMapping;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.service.ProcessMappingService;
 import com.github.benmanes.caffeine.cache.AsyncCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.netty.channel.ChannelOption;

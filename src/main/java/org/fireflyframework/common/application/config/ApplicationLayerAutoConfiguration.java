@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.config;
+package org.fireflyframework.common.application.config;
 
-import org.fireflyframework.application.actuator.FireflyApplicationInfoContributor;
-import org.fireflyframework.application.aop.SecurityAspect;
-import org.fireflyframework.application.context.AppMetadata;
-import org.fireflyframework.application.health.ApplicationLayerHealthIndicator;
-import org.fireflyframework.application.plugin.ProcessPluginRegistry;
-import org.fireflyframework.application.plugin.config.PluginProperties;
-import org.fireflyframework.application.plugin.metrics.PluginMetricsService;
-import org.fireflyframework.application.resolver.ConfigResolver;
-import org.fireflyframework.application.resolver.ContextResolver;
-import org.fireflyframework.application.resolver.DefaultConfigResolver;
-import org.fireflyframework.application.resolver.DefaultContextResolver;
-import org.fireflyframework.application.security.DefaultSecurityAuthorizationService;
-import org.fireflyframework.application.security.EndpointSecurityRegistry;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.actuator.FireflyApplicationInfoContributor;
+import org.fireflyframework.common.application.aop.SecurityAspect;
+import org.fireflyframework.common.application.context.AppMetadata;
+import org.fireflyframework.common.application.health.ApplicationLayerHealthIndicator;
+import org.fireflyframework.common.application.plugin.ProcessPluginRegistry;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.metrics.PluginMetricsService;
+import org.fireflyframework.common.application.resolver.ConfigResolver;
+import org.fireflyframework.common.application.resolver.ContextResolver;
+import org.fireflyframework.common.application.resolver.DefaultConfigResolver;
+import org.fireflyframework.common.application.resolver.DefaultContextResolver;
+import org.fireflyframework.common.application.security.DefaultSecurityAuthorizationService;
+import org.fireflyframework.common.application.security.EndpointSecurityRegistry;
+import org.fireflyframework.common.application.security.JwtClaimsRoleExtractor;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
 import org.fireflyframework.common.application.spi.SessionContext;
 import org.fireflyframework.common.application.spi.SessionManager;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -95,6 +96,24 @@ public class ApplicationLayerAutoConfiguration {
     }
 
     /**
+     * Creates the JWT claims role extractor bean.
+     * Extracts roles and permissions from JWT token claims using configurable paths.
+     *
+     * @param properties the application layer properties
+     * @return JwtClaimsRoleExtractor instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public JwtClaimsRoleExtractor jwtClaimsRoleExtractor(ApplicationLayerProperties properties) {
+        log.info("Creating JwtClaimsRoleExtractor bean (rolesPath={}, permissionsPath={})",
+                properties.getSecurity().getJwtRolesClaimPath(),
+                properties.getSecurity().getJwtPermissionsClaimPath());
+        return new JwtClaimsRoleExtractor(
+                properties.getSecurity().getJwtRolesClaimPath(),
+                properties.getSecurity().getJwtPermissionsClaimPath());
+    }
+
+    /**
      * Banner configuration bean.
      * Ensures the Firefly Application Layer banner is displayed.
      *
@@ -129,9 +148,10 @@ public class ApplicationLayerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public SecurityAspect securityAspect(SecurityAuthorizationService authorizationService,
-                                         EndpointSecurityRegistry endpointSecurityRegistry) {
-        log.info("Creating SecurityAspect bean");
-        return new SecurityAspect(authorizationService, endpointSecurityRegistry);
+                                         EndpointSecurityRegistry endpointSecurityRegistry,
+                                         ApplicationLayerProperties properties) {
+        log.info("Creating SecurityAspect bean (enforce={})", properties.getSecurity().isEnforce());
+        return new SecurityAspect(authorizationService, endpointSecurityRegistry, properties);
     }
 
     /**

@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.security;
+package org.fireflyframework.common.application.security;
 
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppSecurityContext;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppSecurityContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
@@ -35,7 +40,9 @@ import java.time.Instant;
  */
 @Slf4j
 public abstract class AbstractSecurityAuthorizationService implements SecurityAuthorizationService {
-    
+
+    private static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser();
+
     @Override
     public Mono<AppSecurityContext> authorize(AppContext context, AppSecurityContext securityContext) {
         log.debug("Authorizing request for endpoint: {} {} by party: {}", 
@@ -89,10 +96,21 @@ public abstract class AbstractSecurityAuthorizationService implements SecurityAu
     
     @Override
     public Mono<Boolean> evaluateExpression(AppContext context, String expression) {
-        // TODO: Implement SpEL expression evaluation
-        // This would use Spring's SpelExpressionParser to evaluate custom expressions
-        log.warn("Expression evaluation not implemented: {}", expression);
-        return Mono.just(false);
+        if (expression == null || expression.isBlank()) {
+            return Mono.just(true);
+        }
+        try {
+            EvaluationContext evalContext = new StandardEvaluationContext();
+            ((StandardEvaluationContext) evalContext).setVariable("context", context);
+            ((StandardEvaluationContext) evalContext).setRootObject(context);
+            Expression parsed = EXPRESSION_PARSER.parseExpression(expression);
+            Boolean result = parsed.getValue(evalContext, Boolean.class);
+            log.debug("SpEL expression '{}' evaluated to: {}", expression, result);
+            return Mono.just(result != null && result);
+        } catch (Exception e) {
+            log.error("Failed to evaluate SpEL expression '{}': {}", expression, e.getMessage());
+            return Mono.just(false);
+        }
     }
     
     /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.security.annotation;
+package org.fireflyframework.common.application.security.annotation;
 
 import java.lang.annotation.*;
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.metrics;
+package org.fireflyframework.common.application.plugin.metrics;
 
-import org.fireflyframework.application.plugin.ProcessResult;
-import org.fireflyframework.application.plugin.config.PluginProperties;
+import org.fireflyframework.common.application.plugin.ProcessResult;
+import org.fireflyframework.common.application.plugin.config.PluginProperties;
 import org.fireflyframework.observability.metrics.FireflyMetricsSupport;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;

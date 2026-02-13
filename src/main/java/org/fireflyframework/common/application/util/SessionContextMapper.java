@@ -1,4 +1,4 @@
-package org.fireflyframework.application.util;
+package org.fireflyframework.common.application.util;
 
 import org.fireflyframework.common.application.spi.SessionContext;
 import lombok.extern.slf4j.Slf4j;

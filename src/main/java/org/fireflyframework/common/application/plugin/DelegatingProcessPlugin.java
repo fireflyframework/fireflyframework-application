@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin;
+package org.fireflyframework.common.application.plugin;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

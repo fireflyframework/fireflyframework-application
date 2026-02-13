@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.integration;
+package org.fireflyframework.common.application.integration;
 
-import org.fireflyframework.application.aop.SecurityAspect;
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppSecurityContext;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.security.EndpointSecurityRegistry;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
-import org.fireflyframework.application.security.annotation.Secure;
+import org.fireflyframework.common.application.aop.SecurityAspect;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppSecurityContext;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.security.EndpointSecurityRegistry;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.security.annotation.Secure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,9 @@ class SecurityAspectIntegrationTest {
     void setUp() {
         authorizationService = mock(SecurityAuthorizationService.class);
         endpointSecurityRegistry = new EndpointSecurityRegistry();
-        securityAspect = new SecurityAspect(authorizationService, endpointSecurityRegistry);
+        var applicationProperties = new org.fireflyframework.common.application.config.ApplicationLayerProperties();
+        applicationProperties.getSecurity().setUseSecurityCenter(false);
+        securityAspect = new SecurityAspect(authorizationService, endpointSecurityRegistry, applicationProperties);
         
         testService = new TestService();
         

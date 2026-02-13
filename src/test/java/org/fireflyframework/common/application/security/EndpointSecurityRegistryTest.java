@@ -1,6 +1,6 @@
-package org.fireflyframework.application.security;
+package org.fireflyframework.common.application.security;
 
-import org.fireflyframework.application.security.EndpointSecurityRegistry.EndpointSecurity;
+import org.fireflyframework.common.application.security.EndpointSecurityRegistry.EndpointSecurity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

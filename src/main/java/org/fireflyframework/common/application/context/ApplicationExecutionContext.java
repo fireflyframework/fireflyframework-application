@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.context;
+package org.fireflyframework.common.application.context;
 
 import lombok.Builder;
 import lombok.Value;

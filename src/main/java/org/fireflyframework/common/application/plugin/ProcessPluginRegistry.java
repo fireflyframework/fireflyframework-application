@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin;
+package org.fireflyframework.common.application.plugin;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;

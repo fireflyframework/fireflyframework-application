@@ -1,4 +1,4 @@
-package org.fireflyframework.application.context;
+package org.fireflyframework.common.application.context;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

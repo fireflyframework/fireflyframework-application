@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.event;
+package org.fireflyframework.common.application.plugin.event;
 
-import org.fireflyframework.application.plugin.ProcessMetadata;
-import org.fireflyframework.application.plugin.ProcessResult;
+import org.fireflyframework.common.application.plugin.ProcessMetadata;
+import org.fireflyframework.common.application.plugin.ProcessResult;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin;
+package org.fireflyframework.common.application.plugin;
 
-import org.fireflyframework.application.plugin.ValidationResult.ValidationError;
+import org.fireflyframework.common.application.plugin.ValidationResult.ValidationError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

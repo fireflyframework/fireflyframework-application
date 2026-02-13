@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.config;
+package org.fireflyframework.common.application.config;
 
 import org.fireflyframework.cache.config.CacheAutoConfiguration;
 import org.fireflyframework.cache.core.CacheType;

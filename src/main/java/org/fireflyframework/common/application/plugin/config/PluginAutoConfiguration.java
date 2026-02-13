@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.config;
+package org.fireflyframework.common.application.plugin.config;
 
-import org.fireflyframework.application.plugin.ProcessPlugin;
-import org.fireflyframework.application.plugin.ProcessPluginRegistry;
-import org.fireflyframework.application.plugin.event.PluginEventPublisher;
-import org.fireflyframework.application.plugin.loader.PluginLoader;
-import org.fireflyframework.application.plugin.loader.SpringBeanPluginLoader;
-import org.fireflyframework.application.plugin.metrics.PluginMetricsService;
-import org.fireflyframework.application.plugin.service.ProcessMappingService;
-import org.fireflyframework.application.plugin.service.ProcessPluginExecutor;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.plugin.ProcessPlugin;
+import org.fireflyframework.common.application.plugin.ProcessPluginRegistry;
+import org.fireflyframework.common.application.plugin.event.PluginEventPublisher;
+import org.fireflyframework.common.application.plugin.loader.PluginLoader;
+import org.fireflyframework.common.application.plugin.loader.SpringBeanPluginLoader;
+import org.fireflyframework.common.application.plugin.metrics.PluginMetricsService;
+import org.fireflyframework.common.application.plugin.service.ProcessMappingService;
+import org.fireflyframework.common.application.plugin.service.ProcessPluginExecutor;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -66,7 +66,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AutoConfiguration
 @EnableConfigurationProperties(PluginProperties.class)
 @ConditionalOnProperty(name = "firefly.application.plugin.enabled", havingValue = "true", matchIfMissing = true)
-@ComponentScan(basePackages = "org.fireflyframework.application.plugin")
+@ComponentScan(basePackages = "org.fireflyframework.common.application.plugin")
 public class PluginAutoConfiguration implements SmartLifecycle {
     
     /**
@@ -274,14 +274,14 @@ public class PluginAutoConfiguration implements SmartLifecycle {
     private static class DefaultProcessMappingService implements ProcessMappingService {
         
         @Override
-        public Mono<org.fireflyframework.application.plugin.ProcessMapping> resolveMapping(
+        public Mono<org.fireflyframework.common.application.plugin.ProcessMapping> resolveMapping(
                 java.util.UUID tenantId,
                 String operationId,
                 java.util.UUID productId,
                 String channelType) {
             
             // Default: use operationId as processId (vanilla fallback)
-            return Mono.just(org.fireflyframework.application.plugin.ProcessMapping.builder()
+            return Mono.just(org.fireflyframework.common.application.plugin.ProcessMapping.builder()
                     .operationId(operationId)
                     .processId(operationId)  // Same as operationId for vanilla
                     .build());

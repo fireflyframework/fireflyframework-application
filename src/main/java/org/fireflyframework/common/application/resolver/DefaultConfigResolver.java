@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.resolver;
+package org.fireflyframework.common.application.resolver;
 
-import org.fireflyframework.application.context.AppConfig;
+import org.fireflyframework.common.application.context.AppConfig;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 

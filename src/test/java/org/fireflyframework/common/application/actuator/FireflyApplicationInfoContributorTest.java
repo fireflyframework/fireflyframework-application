@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.actuator;
+package org.fireflyframework.common.application.actuator;
 
-import org.fireflyframework.application.context.AppMetadata;
+import org.fireflyframework.common.application.context.AppMetadata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

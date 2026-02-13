@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.service;
+package org.fireflyframework.common.application.service;
 
-import org.fireflyframework.application.context.AppConfig;
-import org.fireflyframework.application.context.AppContext;
-import org.fireflyframework.application.context.AppMetadata;
-import org.fireflyframework.application.context.ApplicationExecutionContext;
-import org.fireflyframework.application.resolver.ConfigResolver;
-import org.fireflyframework.application.resolver.ContextResolver;
-import org.fireflyframework.application.security.SecurityAuthorizationService;
+import org.fireflyframework.common.application.context.AppConfig;
+import org.fireflyframework.common.application.context.AppContext;
+import org.fireflyframework.common.application.context.AppMetadata;
+import org.fireflyframework.common.application.context.ApplicationExecutionContext;
+import org.fireflyframework.common.application.resolver.ConfigResolver;
+import org.fireflyframework.common.application.resolver.ContextResolver;
+import org.fireflyframework.common.application.security.SecurityAuthorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.actuator;
+package org.fireflyframework.common.application.actuator;
 
-import org.fireflyframework.application.context.AppMetadata;
+import org.fireflyframework.common.application.context.AppMetadata;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 

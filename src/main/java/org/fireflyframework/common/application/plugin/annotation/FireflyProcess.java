@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.fireflyframework.application.plugin.annotation;
+package org.fireflyframework.common.application.plugin.annotation;
 
 import org.springframework.stereotype.Component;
 
@@ -59,9 +59,9 @@ import java.lang.annotation.Target;
  * 
  * @author Firefly Development Team
  * @since 1.0.0
- * @see org.fireflyframework.application.plugin.ProcessPlugin
- * @see org.fireflyframework.application.plugin.ProcessMetadata
- * @see org.fireflyframework.application.plugin.ProcessPluginRegistry
+ * @see org.fireflyframework.common.application.plugin.ProcessPlugin
+ * @see org.fireflyframework.common.application.plugin.ProcessMetadata
+ * @see org.fireflyframework.common.application.plugin.ProcessPluginRegistry
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

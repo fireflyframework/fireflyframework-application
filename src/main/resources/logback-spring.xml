@@ -11,14 +11,14 @@
     </root>
 
     <!-- Application Loggers -->
-    <logger name="org.fireflyframework.application" level="DEBUG"/>
+    <logger name="org.fireflyframework.common.application" level="DEBUG"/>
 
     <!-- Profile-specific configurations -->
     <springProfile name="dev,local">
-        <logger name="org.fireflyframework.application" level="DEBUG"/>
+        <logger name="org.fireflyframework.common.application" level="DEBUG"/>
     </springProfile>
 
     <springProfile name="prod,production">
-        <logger name="org.fireflyframework.application" level="INFO"/>
+        <logger name="org.fireflyframework.common.application" level="INFO"/>
     </springProfile>
 </configuration>

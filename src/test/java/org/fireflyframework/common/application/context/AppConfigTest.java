@@ -1,6 +1,6 @@
-package org.fireflyframework.application.context;
+package org.fireflyframework.common.application.context;
 
-import org.fireflyframework.application.context.AppConfig.ProviderConfig;
+import org.fireflyframework.common.application.context.AppConfig.ProviderConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
